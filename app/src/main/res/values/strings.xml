@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">OP.GG</string>
+
+    <string name="text_refresh">전적갱신</string>
+    <string name="text_mvp">MVP</string>
 </resources>
