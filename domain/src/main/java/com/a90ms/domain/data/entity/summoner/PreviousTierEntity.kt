@@ -1,6 +1,6 @@
 package com.a90ms.domain.data.entity.summoner
 
-data class TierRankEntity(
+data class PreviousTierEntity(
     val name: String,
     val tier: String,
     val tierDivision: String,
@@ -9,5 +9,6 @@ data class TierRankEntity(
     val division: String,
     val imageUrl: String,
     val lp: Int,
-    val tierRankPoint: Int
+    val tierRankPoint: Int,
+    val season: Int
 )
