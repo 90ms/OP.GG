@@ -1,6 +1,6 @@
 package com.a90ms.domain.data.entity.game
 
-data class GamesEntity(
+data class GameEntity(
     val mmr: Long,
     val champion: ChampionEntity,
     val spells: List<ImageUrlEntity?>?,

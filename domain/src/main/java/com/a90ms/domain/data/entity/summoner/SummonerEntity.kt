@@ -6,7 +6,7 @@ data class SummonerEntity(
     val profileImageUrl: String,
     val profileBorderImageUrl: String,
     val url: String,
-    val leagues: List<LeaguesEntity>,
+    val leagues: List<LeagueEntity>,
     val previousTiers: List<PreviousTierEntity>,
     val ladderRank: LadderRankEntity,
     val profileBackgroundImageUrl: String
