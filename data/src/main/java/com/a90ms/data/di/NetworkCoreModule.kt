@@ -1,6 +1,5 @@
 package com.a90ms.data.di
 
-import android.content.Context
 import com.a90ms.data.BuildConfig
 import com.a90ms.data.base.DEFAULT_TIME_OUT
 import com.a90ms.data.base.HOST_NAME
@@ -14,15 +13,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Response
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.jackson.JacksonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)

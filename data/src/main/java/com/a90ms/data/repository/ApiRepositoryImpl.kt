@@ -5,7 +5,7 @@ import com.a90ms.domain.repository.ApiRepository
 
 class ApiRepositoryImpl(
     private val apiService: ApiService
-): ApiRepository {
+) : ApiRepository {
     override suspend fun getSummonerInfo() {
         apiService.getSummonerInfo()
     }
