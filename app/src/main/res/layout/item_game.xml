@@ -8,18 +8,171 @@
         <variable
             name="vm"
             type="com.a90ms.opgg.main.MainViewModel" />
+
+        <variable
+            name="item"
+            type="com.a90ms.domain.data.dto.game.GameDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="104dp">
+
+        <View
+            android:id="@+id/view_win_loss"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:background="@color/soft_blue" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
+            android:id="@+id/tv_win_loss_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="게임"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_marginBottom="6dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/view_divider"
+            app:layout_constraintEnd_toEndOf="@id/view_win_loss"
+            app:layout_constraintStart_toStartOf="@id/view_win_loss"
+            tools:text="승" />
 
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="12dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/view_win_loss"
+            app:layout_constraintStart_toStartOf="@id/view_win_loss"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_per_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="@id/view_win_loss"
+            app:layout_constraintStart_toStartOf="@id/view_win_loss"
+            app:layout_constraintTop_toBottomOf="@id/view_divider"
+            tools:text="38:45" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_image_champion"
+            bindImage="@{vm.summonerInfo.profileImageUrl}"
+            bindPlaceHolder="@{@drawable/ic_default_photo}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/default_margin"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toEndOf="@id/view_win_loss"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sr_op_score_badge"
+            android:backgroundTint="@color/periwinkle"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            android:text="@{vm.summonerInfo.level}"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_image_champion"
+            app:layout_constraintEnd_toEndOf="@id/iv_image_champion"
+            app:layout_constraintStart_toStartOf="@id/iv_image_champion"
+            app:layout_constraintTop_toBottomOf="@id/iv_image_champion"
+            tools:text="MVP" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_spell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintStart_toEndOf="@id/iv_image_champion"
+            app:layout_constraintTop_toTopOf="@id/iv_image_champion"
+            app:spanCount="2"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_spell" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_kda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/dark_grey"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/rv_spell"
+            app:layout_constraintTop_toTopOf="@id/iv_image_champion"
+            tools:text="88 / 88 / 88" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_kill_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/gunmetal"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@id/tv_kda"
+            app:layout_constraintTop_toBottomOf="@id/tv_kda"
+            tools:text="킬관여 13%" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="@id/iv_image_champion"
+            app:layout_constraintTop_toBottomOf="@id/iv_image_champion"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_item" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_game_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:textColor="@color/cool_grey"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_image_champion"
+            tools:text="솔랭" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_ago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/cool_grey"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="@id/tv_game_type"
+            app:layout_constraintTop_toBottomOf="@id/tv_game_type"
+            tools:text="10분전" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_quadra_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:background="@drawable/sr_quadra_badge"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="4dp"
+            android:text="@string/text_quadra_kill"
+            android:textColor="@color/darkish_pink"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/tv_game_type"
+            app:layout_constraintTop_toBottomOf="@id/tv_ago" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,4 +4,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="CircleImageViewCorner3" parent="">
+        <item name="cornerSize">3dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
 </resources>

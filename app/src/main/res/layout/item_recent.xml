@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.a90ms.opgg.main.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title_recent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="최근 20게임 분석"
+            android:textColor="@color/cool_grey"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/guide_37"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="최근 20게임 분석" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_win_loss"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="xxxxx"
+            android:textColor="@color/cool_grey"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/tv_title_recent"
+            app:layout_constraintStart_toStartOf="@id/tv_title_recent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_recent"
+            tools:text="11승 9패" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_kda"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="xxxxx"
+            android:textColor="@color/charcoal_grey"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="@id/tv_title_recent"
+            app:layout_constraintStart_toStartOf="@id/tv_title_recent"
+            app:layout_constraintTop_toBottomOf="@id/tv_win_loss"
+            tools:text="5.9 / 5.8 / 14.1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_kda_per"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="xxxxx"
+            android:textColor="@color/darkish_pink"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/tv_title_recent"
+            app:layout_constraintStart_toStartOf="@id/tv_title_recent"
+            app:layout_constraintTop_toBottomOf="@id/tv_kda"
+            tools:text="3.65:1 (66%)" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.37" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title_most"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="모스트 승률"
+            android:textColor="@color/cool_grey"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/guide_7"
+            app:layout_constraintStart_toStartOf="@id/guide_37"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="모스트 승률" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_image_1"
+            bindImage="@{vm.summonerInfo.profileImageUrl}"
+            bindPlaceHolder="@{@drawable/ic_default_photo}"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toStartOf="@id/iv_image_2"
+            app:layout_constraintStart_toStartOf="@id/tv_title_most"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_most"
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_most_per_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="10%"
+            android:textColor="@color/dark_grey"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/iv_image_1"
+            app:layout_constraintStart_toStartOf="@id/iv_image_1"
+            app:layout_constraintTop_toBottomOf="@id/iv_image_1" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_image_2"
+            bindImage="@{vm.summonerInfo.profileImageUrl}"
+            bindPlaceHolder="@{@drawable/ic_default_photo}"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="@id/tv_title_most"
+            app:layout_constraintStart_toEndOf="@id/iv_image_1"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_most"
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_most_per_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="10%"
+            android:textColor="@color/dark_grey"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/iv_image_2"
+            app:layout_constraintStart_toStartOf="@id/iv_image_2"
+            app:layout_constraintTop_toBottomOf="@id/iv_image_2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="포지션"
+            android:textColor="@color/cool_grey"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guide_7"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="포지션" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_image_position"
+            bindImage="@{vm.summonerInfo.profileImageUrl}"
+            bindPlaceHolder="@{@drawable/ic_default_photo}"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="@id/tv_title_position"
+            app:layout_constraintStart_toStartOf="@id/tv_title_position"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_position"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_position_per"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="10%"
+            android:textColor="@color/dark_grey"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/iv_image_position"
+            app:layout_constraintStart_toStartOf="@id/iv_image_position"
+            app:layout_constraintTop_toBottomOf="@id/iv_image_position" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

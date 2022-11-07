@@ -55,6 +55,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 diffUtil = diffUtil
             )
         }
+        binding.rvGame.run {
+
+        }
     }
 
     private fun setupData() {
