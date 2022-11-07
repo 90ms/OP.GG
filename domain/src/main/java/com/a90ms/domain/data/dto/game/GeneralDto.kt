@@ -7,6 +7,7 @@ data class GeneralDto(
     val opScoreBadge: OpScoreBadgeType,
     val largestMultiKillString: String,
     val contributionForKillRate: String,
+    val contributionForKillRateToString: String,
     val kdsToString: String
 )
 

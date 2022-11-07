@@ -16,6 +16,7 @@ import com.a90ms.domain.usecase.GetSummonerUseCase
 import com.a90ms.opgg.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.math.roundToInt
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -80,18 +81,27 @@ class MainViewModel @Inject constructor(
     private val _mostList = MutableLiveData<List<ChampionsDto>>()
     val mostList: LiveData<List<ChampionsDto>> get() = _mostList
 
+    private val _kdaAverage = MutableLiveData("")
+    val kdaAverage: LiveData<String> get() = _kdaAverage
+
     private fun updateRecentData(dto: GameResponseDto) {
         val win = dto.games.count { it.isWin }
         val loss = dto.games.count { !it.isWin }
+
         _winLossLabel.value = "${win}승 ${loss}패"
 
         val kill = dto.games.map { it.stats.general.kill }.average()
         val death = dto.games.map { it.stats.general.death }.average()
         val assist = dto.games.map { it.stats.general.assist }.average()
 
-        _kda.value = "$kill / $death / $assist"
+        _kda.value = "$kill / $assist / $death"
 
         _mostList.value = dto.champions.sortedByDescending { it.winPerRate }
+
+        val average = (kill + assist) / death
+        val percent = (((kill + assist) / death - 1) * 100).roundToInt()
+
+        _kdaAverage.value = "${String.format("%.2f", average)}:1 ($percent%)"
 
         isFirst.value = false
     }

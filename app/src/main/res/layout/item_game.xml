@@ -83,8 +83,7 @@
             bindVisible="@{item.stats.general.opScoreBadge != OpScoreBadgeType.EMPTY}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sr_op_score_badge"
-            android:backgroundTint="@{item.stats.general.opScoreBadge == OpScoreBadgeType.MVP?@color/orange_yellow:@color/periwinkle}"
+            android:background="@{item.stats.general.opScoreBadge == OpScoreBadgeType.MVP?@drawable/sr_op_score_badge:@drawable/sr_op_score_badge_purple}"
             android:paddingHorizontal="4dp"
             android:paddingVertical="2dp"
             android:text="@{item.stats.general.opScoreBadge.toString()}"
@@ -144,26 +143,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="@{item.stats.general.contributionForKillRate}"
+            android:text="@{item.stats.general.contributionForKillRateToString}"
             android:textColor="@color/gunmetal"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@id/tv_kda"
             app:layout_constraintTop_toBottomOf="@id/tv_kda"
             tools:text="킬관여 13%" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_item"
-            bindItemList="@{item.itemImgList}"
-            bindMainViewModel="@{vm}"
+        <LinearLayout
+            android:id="@+id/ll_item"
+            bindList="@{item.itemImgList}"
+            bindPlaceHolder="@{@drawable/sr_palegreytwo_4}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="@id/iv_image_champion"
-            app:layout_constraintTop_toBottomOf="@id/iv_image_champion"
-            tools:itemCount="6"
-            tools:listitem="@layout/item_item" />
+            app:layout_constraintTop_toBottomOf="@id/iv_image_champion" />
 
         <com.google.android.material.imageview.ShapeableImageView
             bindImage="@{item.accessoriesImg}"
@@ -171,9 +167,9 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="2dp"
-            app:layout_constraintBottom_toBottomOf="@id/rv_item"
-            app:layout_constraintStart_toEndOf="@id/rv_item"
-            app:layout_constraintTop_toTopOf="@id/rv_item"
+            app:layout_constraintBottom_toBottomOf="@id/ll_item"
+            app:layout_constraintStart_toEndOf="@id/ll_item"
+            app:layout_constraintTop_toTopOf="@id/ll_item"
             app:shapeAppearanceOverlay="@style/CircleImageView" />
 
         <androidx.appcompat.widget.AppCompatTextView

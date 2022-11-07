@@ -99,7 +99,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     scope = lifecycleScope,
                     scrollTop = { scrollToPosition(0) },
                     isLoading = {
-//                        if(it.not()) viewModel.updateRecentData(this.snapshot())
                     },
                     isError = {
                         // TODO 에러

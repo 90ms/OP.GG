@@ -17,7 +17,8 @@ data class GeneralEntity(
         assist = assist,
         opScoreBadge = OpScoreBadgeType.creator(opScoreBadge),
         largestMultiKillString = largestMultiKillString,
-        contributionForKillRate = "킬관여 $contributionForKillRate",
-        kdsToString = "$kill / $death / $assist"
+        contributionForKillRate = contributionForKillRate,
+        contributionForKillRateToString = "킬관여 $contributionForKillRate",
+        kdsToString = "$kill / $assist / $death"
     )
 }
