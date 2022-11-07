@@ -16,11 +16,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         setupBinding()
+        setupData()
     }
 
     private fun setupBinding() {
         with(binding) {
             vm = viewModel
         }
+    }
+
+    private fun setupData() {
+        viewModel.fetchData()
     }
 }

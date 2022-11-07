@@ -6,9 +6,8 @@ import com.a90ms.domain.repository.ApiRepository
 class ApiRepositoryImpl(
     private val apiService: ApiService
 ) : ApiRepository {
-    override suspend fun getSummonerInfo() {
-        apiService.getSummonerInfo()
-    }
+    override suspend fun getSummonerInfo() =
+        apiService.getSummonerInfo().summoner.toDto()
 
     override suspend fun getGameInfoList(createDate: String) {
         apiService.getGamesInfo(createDate)
