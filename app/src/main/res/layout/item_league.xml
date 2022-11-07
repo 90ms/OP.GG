@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.a90ms.opgg.main.MainViewModel" />
+
+        <variable
+            name="item"
+            type="com.a90ms.domain.data.dto.summoner.LeagueDto" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="240dp"
+        android:layout_height="82dp"
+        android:layout_marginHorizontal="4dp"
+        android:background="@drawable/sr_white_palegreytwo_4">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_image"
+            bindImage="@{item.tierRank.imageUrl}"
+            bindPlaceHolder="@{@drawable/ic_default_photo}"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_tier_rank_name"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:text="@{item.tierRank.name}"
+            android:textColor="@color/soft_blue"
+            android:textSize="10dp"
+            app:layout_constraintStart_toEndOf="@id/iv_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SmallSp"
+            tools:text="솔랭" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_tier_division"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="2dp"
+            android:text="@{item.tierRank.tierDivision}"
+            android:textColor="@color/dark_grey"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_tier_rank_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_tier_rank_name"
+            tools:text="Grandmaster" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_lp"
+            android:layout_width="wrap_content"
+            android:layout_height="11dp"
+            android:layout_marginTop="2dp"
+            tools:text="1,222 LP"
+            android:textSize="10dp"
+            android:textColor="@color/gunmetal"
+            android:text="@{item.tierRank.lp}"
+            app:layout_constraintStart_toStartOf="@id/tv_tier_rank_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_tier_division"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_marginTop="2dp"
+            tools:text="111승 111패 (50%)"
+            android:textSize="10dp"
+            android:textColor="@color/cool_grey"
+            android:text="@{item.winningRate}"
+            app:layout_constraintStart_toStartOf="@id/tv_tier_rank_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_lp"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_right"
+            android:padding="10dp"
+            android:background="@drawable/so_pale_grey"
+            android:layout_marginEnd="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

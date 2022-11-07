@@ -16,7 +16,7 @@
 
         <include
             android:id="@+id/include_profile"
-            layout="@layout/item_info_profile"
+            layout="@layout/layout_info_profile"
             app:vm="@{vm}"
             android:layout_marginTop="@dimen/main_margin_top"
             android:layout_width="match_parent"
@@ -25,18 +25,20 @@
 
         <include
             android:id="@+id/include_leagues"
-            layout="@layout/item_info_leagues"
+            layout="@layout/layout_info_league"
             app:vm="@{vm}"
+            android:layout_marginTop="31dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/include_profile" />
 
         <include
             android:id="@+id/include_recent"
-            layout="@layout/item_info_recent"
+            layout="@layout/layout_info_recent"
             app:vm="@{vm}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/include_leagues" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,5 +1,6 @@
 package com.a90ms.domain.data.entity.summoner
 
+import com.a90ms.common.utils.Formatter.intToString
 import com.a90ms.domain.data.dto.summoner.TierRankDto
 
 data class TierRankEntity(
@@ -21,7 +22,7 @@ data class TierRankEntity(
         shortString = shortString,
         division = division,
         imageUrl = imageUrl,
-        lp = lp,
+        lp = "${lp.intToString()} LP",
         tierRankPoint = tierRankPoint
     )
 }

@@ -8,6 +8,6 @@ data class TierRankDto(
     val shortString: String,
     val division: String,
     val imageUrl: String,
-    val lp: Int,
+    val lp: String,
     val tierRankPoint: Int
 )
