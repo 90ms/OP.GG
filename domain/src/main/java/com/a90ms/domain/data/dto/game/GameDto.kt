@@ -7,8 +7,9 @@ data class GameDto(
     val items: List<ImageUrlDto>,
     val needRenew: Boolean,
     val gameId: String,
-    val createDate: String,
-    val gameLength: String,
+    val createDate: Long,
+    val gameLength: Long,
+    val convertGameLength: String,
     val gameType: String,
     val summonerId: String,
     val summonerName: String,
@@ -16,5 +17,6 @@ data class GameDto(
     val stats: StatsDto,
     val peak: List<String>,
     val isWin: Boolean,
-    val champions: List<ChampionsDto?>?
+    val champions: List<ChampionsDto>,
+    val ago: String
 )

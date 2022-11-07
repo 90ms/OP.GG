@@ -5,5 +5,6 @@ data class GeneralDto(
     val deaths: Int,
     val assists: Int,
     val opScoreBadge: String,
+    val largestMultiKillString: String,
     val contributionForKillRate: String
 )

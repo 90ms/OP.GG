@@ -22,4 +22,6 @@
     <color name="cool_grey">#98a0a7</color>
     <color name="pale_grey">#f7f7f9</color>
     <color name="pale_grey_two">#ebeef1</color>
+
+    <color name="white_40">#66ffffff</color>
 </resources>

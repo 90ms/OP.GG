@@ -1,5 +1,7 @@
 package com.a90ms.domain.data.entity.game
 
+import com.a90ms.common.utils.Formatter.convertTimeStamp
+import com.a90ms.common.utils.Formatter.timeToAgo
 import com.a90ms.domain.data.dto.game.GameDto
 
 data class GameEntity(
@@ -9,8 +11,8 @@ data class GameEntity(
     val items: List<ImageUrlEntity>,
     val needRenew: Boolean,
     val gameId: String,
-    val createDate: String,
-    val gameLength: String,
+    val createDate: Long,
+    val gameLength: Long,
     val gameType: String,
     val summonerId: String,
     val summonerName: String,
@@ -29,6 +31,7 @@ data class GameEntity(
         gameId = gameId,
         createDate = createDate,
         gameLength = gameLength,
+        convertGameLength = (gameLength * 1000).convertTimeStamp(),
         gameType = gameType,
         summonerId = summonerId,
         summonerName = summonerName,
@@ -36,6 +39,7 @@ data class GameEntity(
         stats = stats.toDto(),
         peak = peak,
         isWin = isWin,
-        champions = champions?.mapNotNull { it?.toDto() } ?: emptyList()
+        champions = champions?.mapNotNull { it?.toDto() } ?: emptyList(),
+        ago = timeToAgo(createDate + (gameLength * 1000))
     )
 }

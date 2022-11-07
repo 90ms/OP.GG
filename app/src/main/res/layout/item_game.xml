@@ -22,6 +22,7 @@
             android:id="@+id/view_win_loss"
             android:layout_width="40dp"
             android:layout_height="match_parent"
+            android:background="@{item.win?@color/soft_blue:@color/darkish_pink}"
             app:layout_constraintStart_toStartOf="parent"
             tools:background="@color/soft_blue" />
 
@@ -30,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
+            android:text='@{item.win?"승":"패"}'
             android:textColor="@color/white"
             android:textSize="16dp"
             android:textStyle="bold"
@@ -43,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginHorizontal="12dp"
-            android:background="@color/white"
+            android:background="@color/white_40"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/view_win_loss"
             app:layout_constraintStart_toStartOf="@id/view_win_loss"
@@ -56,6 +58,7 @@
             android:layout_marginTop="6dp"
             android:textColor="@color/white"
             android:textSize="12dp"
+            android:text="@{item.convertGameLength}"
             app:layout_constraintEnd_toEndOf="@id/view_win_loss"
             app:layout_constraintStart_toStartOf="@id/view_win_loss"
             app:layout_constraintTop_toBottomOf="@id/view_divider"
@@ -63,7 +66,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_image_champion"
-            bindImage="@{vm.summonerInfo.profileImageUrl}"
+            bindImage="@{item.champion.imageUrl}"
             bindPlaceHolder="@{@drawable/ic_default_photo}"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -143,6 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_margin"
+            android:text="@{item.gameType}"
             android:textColor="@color/cool_grey"
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -156,12 +160,14 @@
             android:layout_marginTop="1dp"
             android:textColor="@color/cool_grey"
             android:textSize="12dp"
+            android:text="@{item.ago}"
             app:layout_constraintEnd_toEndOf="@id/tv_game_type"
             app:layout_constraintTop_toBottomOf="@id/tv_game_type"
             tools:text="10분전" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_quadra_badge"
+            android:id="@+id/tv_kill_badge"
+            bindVisible="@{!item.stats.general.largestMultiKillString.empty}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
@@ -169,10 +175,11 @@
             android:paddingHorizontal="8dp"
             android:paddingTop="5dp"
             android:paddingBottom="4dp"
-            android:text="@string/text_quadra_kill"
+            android:text="@{item.stats.general.largestMultiKillString}"
             android:textColor="@color/darkish_pink"
             android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="@id/tv_game_type"
-            app:layout_constraintTop_toBottomOf="@id/tv_ago" />
+            app:layout_constraintTop_toBottomOf="@id/tv_ago"
+            tools:text="Double Kill" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

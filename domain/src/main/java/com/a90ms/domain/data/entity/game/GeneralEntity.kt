@@ -7,6 +7,7 @@ data class GeneralEntity(
     val deaths: Int,
     val assists: Int,
     val opScoreBadge: String,
+    val largestMultiKillString: String,
     val contributionForKillRate: String
 ) {
     fun toDto() = GeneralDto(
@@ -14,6 +15,7 @@ data class GeneralEntity(
         deaths = deaths,
         assists = assists,
         opScoreBadge = opScoreBadge,
+        largestMultiKillString = largestMultiKillString,
         contributionForKillRate = contributionForKillRate
     )
 }
