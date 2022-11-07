@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.a90ms.domain.base.onError
 import com.a90ms.domain.base.onException
 import com.a90ms.domain.base.onSuccess
+import com.a90ms.domain.data.dto.game.ChampionsDto
+import com.a90ms.domain.data.dto.game.GameResponseDto
 import com.a90ms.domain.data.dto.summoner.SummonerDto
 import com.a90ms.domain.usecase.GetGamesUseCase
 import com.a90ms.domain.usecase.GetSummonerUseCase
@@ -32,6 +35,7 @@ class MainViewModel @Inject constructor(
     fun fetchData() {
         fetchSummoner()
         fetchGames()
+        isFirst.value = true
     }
 
     private fun fetchSummoner() {
@@ -50,7 +54,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             getGamesUseCase().onSuccess {
                 it.map {
-                    it
+                    it.map {
+                        if (isFirst.value == true) updateRecentData(it.second)
+                        it.first
+                    }
                 }.cachedIn(viewModelScope).collect {
                     _state.value = MainState.OnUpdateList(it)
                 }
@@ -60,5 +67,32 @@ class MainViewModel @Inject constructor(
                 Timber.e("fetchGames onException ${it.message}")
             }
         }
+    }
+
+    private val isFirst = MutableLiveData(false)
+
+    private val _winLossLabel = MutableLiveData("")
+    val winLossLabel: LiveData<String> get() = _winLossLabel
+
+    private val _kda = MutableLiveData("")
+    val kda: LiveData<String> get() = _kda
+
+    private val _mostList = MutableLiveData<List<ChampionsDto>>()
+    val mostList: LiveData<List<ChampionsDto>> get() = _mostList
+
+    private fun updateRecentData(dto: GameResponseDto) {
+        val win = dto.games.count { it.isWin }
+        val loss = dto.games.count { !it.isWin }
+        _winLossLabel.value = "${win}승 ${loss}패"
+
+        val kill = dto.games.map { it.stats.general.kill }.average()
+        val death = dto.games.map { it.stats.general.death }.average()
+        val assist = dto.games.map { it.stats.general.assist }.average()
+
+        _kda.value = "$kill / $death / $assist"
+
+        _mostList.value = dto.champions.sortedByDescending { it.winPerRate }
+
+        isFirst.value = false
     }
 }

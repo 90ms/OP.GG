@@ -31,8 +31,11 @@ class BasePagingAdapter<ITEM : Any>(
         getItem(position)?.let { holder.bind(it) }
     }
 
+    private var previousLoading: Boolean? = null
     fun setupSourceLoadStateListener(
         scope: CoroutineScope,
+        isLoading: ((Boolean) -> Unit)? = null,
+
         scrollTop: (() -> Unit)? = null,
         isError: ((String) -> Unit)? = null
     ) {
@@ -47,6 +50,13 @@ class BasePagingAdapter<ITEM : Any>(
                 }
                 .distinctUntilChanged()
                 .collect {
+
+                    val loading = it.refresh is LoadState.Loading
+                    if (previousLoading != loading) {
+                        isLoading?.invoke(loading)
+                        previousLoading = loading
+                    }
+
                     val errorState = it.append as? LoadState.Error
                         ?: it.prepend as? LoadState.Error
                         ?: it.refresh as? LoadState.Error

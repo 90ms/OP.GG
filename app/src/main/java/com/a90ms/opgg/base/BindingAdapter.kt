@@ -52,18 +52,20 @@ fun View.bindVisible(show: Boolean?) {
 }
 
 @BindingAdapter("bindKdsToString")
-fun TextView.bindKdsToString(kdsToString: String) {
-    val sIndex = kdsToString.indexOf("/") + 1
-    val eIndex = kdsToString.lastIndexOf("/")
+fun TextView.bindKdsToString(kdsToString: String?) {
+    if (!kdsToString.isNullOrEmpty()) {
+        val sIndex = kdsToString.indexOf("/") + 1
+        val eIndex = kdsToString.lastIndexOf("/")
 
-    val spannable = SpannableString(kdsToString)
-    spannable.setSpan(
-        ForegroundColorSpan(ContextCompat.getColor(context, R.color.darkish_pink)),
-        sIndex,
-        eIndex,
-        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-    )
-    text = spannable
+        val spannable = SpannableString(kdsToString)
+        spannable.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(context, R.color.darkish_pink)),
+            sIndex,
+            eIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        text = spannable
+    }
 }
 
 @BindingAdapter("bindSpellList", "bindMainViewModel")

@@ -20,7 +20,6 @@ data class GameEntity(
     val stats: StatsEntity,
     val peak: List<String>,
     val isWin: Boolean,
-    val champions: List<ChampionsEntity?>?
 ) {
     fun toDto() = GameDto(
         mmr = mmr,
@@ -39,7 +38,6 @@ data class GameEntity(
         stats = stats.toDto(),
         peak = peak,
         isWin = isWin,
-        champions = champions?.mapNotNull { it?.toDto() } ?: emptyList(),
         ago = timeToAgo(createDate + (gameLength * 1000)),
         itemImgList = itemAddDummy(),
         accessoriesImg = items.last().imageUrl

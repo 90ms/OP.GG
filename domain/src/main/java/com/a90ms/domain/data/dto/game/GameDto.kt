@@ -17,7 +17,6 @@ data class GameDto(
     val stats: StatsDto,
     val peak: List<String>,
     val isWin: Boolean,
-    val champions: List<ChampionsDto>,
     val ago: String,
     val itemImgList: List<String>,
     val accessoriesImg: String

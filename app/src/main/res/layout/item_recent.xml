@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="xxxxx"
+            android:text="@{vm.winLossLabel}"
             android:textColor="@color/cool_grey"
             android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="@id/tv_title_recent"
@@ -42,10 +42,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_kda"
+            bindKdsToString="@{vm.kda}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="xxxxx"
             android:textColor="@color/charcoal_grey"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="@id/tv_title_recent"
@@ -87,7 +87,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_image_1"
-            bindImage="@{vm.summonerInfo.profileImageUrl}"
+            bindImage="@{vm.mostList[0].imageUrl}"
             bindPlaceHolder="@{@drawable/ic_default_photo}"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -97,6 +97,7 @@
             app:layout_constraintEnd_toStartOf="@id/iv_image_2"
             app:layout_constraintStart_toStartOf="@id/tv_title_most"
             app:layout_constraintTop_toBottomOf="@id/tv_title_most"
+            app:layout_goneMarginEnd="0dp"
             app:shapeAppearanceOverlay="@style/CircleImageView"
             tools:src="@tools:sample/avatars" />
 
@@ -105,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="10%"
+            android:text="@{vm.mostList[0].winPerRateToString}"
             android:textColor="@color/dark_grey"
             android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="@id/iv_image_1"
@@ -114,8 +115,9 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_image_2"
-            bindImage="@{vm.summonerInfo.profileImageUrl}"
+            bindImage="@{vm.mostList[1].imageUrl}"
             bindPlaceHolder="@{@drawable/ic_default_photo}"
+            bindVisible="@{vm.mostList.size()>1}"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
@@ -129,10 +131,11 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_most_per_2"
+            bindVisible="@{vm.mostList.size()>1}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="10%"
+            android:text="@{vm.mostList[1].winPerRateToString}"
             android:textColor="@color/dark_grey"
             android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="@id/iv_image_2"

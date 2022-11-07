@@ -1,6 +1,7 @@
 package com.a90ms.domain.data.entity.game
 
 import com.a90ms.domain.data.dto.game.ChampionsDto
+import kotlin.math.roundToInt
 
 data class ChampionsEntity(
     val id: Long,
@@ -18,12 +19,17 @@ data class ChampionsEntity(
         id = id,
         key = key,
         name = name,
-        imageUrl = imageUrl,
+        imageUrl = if (!imageUrl.startsWith("http")) "https:$imageUrl" else imageUrl,
         games = games,
         kills = kills,
         deaths = deaths,
         assists = assists,
         wins = wins,
-        losses = losses
+        losses = losses,
+        winPerRate = winPerRate(),
+        winPerRateToString = "${winPerRate()}%"
     )
+
+    private fun winPerRate() =
+        ((wins.toDouble() / (wins.toDouble() + losses.toDouble())) * 100).roundToInt()
 }
