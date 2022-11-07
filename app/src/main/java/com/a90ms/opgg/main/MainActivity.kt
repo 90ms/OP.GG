@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.a90ms.common.utils.RecyclerViewDividerDecoration
+import com.a90ms.common.utils.RecyclerViewDecoration
 import com.a90ms.domain.data.dto.game.GameDto
 import com.a90ms.domain.data.dto.summoner.LeagueDto
 import com.a90ms.opgg.BR
@@ -87,7 +87,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 ) = oldItem == newItem
             }
 
-            addItemDecoration(RecyclerViewDividerDecoration())
+            addItemDecoration(RecyclerViewDecoration())
 
             this@MainActivity.adapter = BasePagingAdapter(
                 layoutResourceId = R.layout.item_game,

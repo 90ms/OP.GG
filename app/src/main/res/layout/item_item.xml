@@ -6,14 +6,16 @@
     <data>
         <variable
             name="item"
-            type="com.a90ms.domain.data.dto.game.GameDto" />
+            type="String" />
     </data>
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_image_champion"
+        android:id="@+id/iv_image_item"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_margin="1dp"
+        bindImage="@{item}"
+        bindPlaceHolder="@{@drawable/sr_palegreytwo_4}"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/CircleImageViewCorner3"

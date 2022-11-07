@@ -12,6 +12,8 @@
         <variable
             name="item"
             type="com.a90ms.domain.data.dto.game.GameDto" />
+
+        <import type="com.a90ms.domain.data.dto.game.OpScoreBadgeType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,9 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:text="@{item.convertGameLength}"
             android:textColor="@color/white"
             android:textSize="12dp"
-            android:text="@{item.convertGameLength}"
             app:layout_constraintEnd_toEndOf="@id/view_win_loss"
             app:layout_constraintStart_toStartOf="@id/view_win_loss"
             app:layout_constraintTop_toBottomOf="@id/view_divider"
@@ -78,13 +80,14 @@
             tools:src="@tools:sample/avatars" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            bindVisible="@{item.stats.general.opScoreBadge != OpScoreBadgeType.EMPTY}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/sr_op_score_badge"
-            android:backgroundTint="@color/periwinkle"
+            android:backgroundTint="@{item.stats.general.opScoreBadge == OpScoreBadgeType.MVP?@color/orange_yellow:@color/periwinkle}"
             android:paddingHorizontal="4dp"
             android:paddingVertical="2dp"
-            android:text="@{vm.summonerInfo.level}"
+            android:text="@{item.stats.general.opScoreBadge.toString()}"
             android:textColor="@color/white"
             android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="@id/iv_image_champion"
@@ -95,6 +98,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_spell"
+            bindMainViewModel="@{vm}"
+            bindSpellList="@{item.spells}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -103,18 +108,34 @@
             app:layout_constraintStart_toEndOf="@id/iv_image_champion"
             app:layout_constraintTop_toTopOf="@id/iv_image_champion"
             app:spanCount="2"
-            tools:itemCount="3"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_spell" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_rune"
+            bindMainViewModel="@{vm}"
+            bindRuneList="@{item.peak}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintStart_toEndOf="@id/rv_spell"
+            app:layout_constraintTop_toTopOf="@id/iv_image_champion"
+            app:spanCount="2"
+            tools:itemCount="2"
             tools:listitem="@layout/item_spell" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_kda"
+            bindKdsToString="@{item.stats.general.kdsToString}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:textColor="@color/dark_grey"
             android:textSize="16dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/rv_spell"
+            app:layout_constraintStart_toEndOf="@id/rv_rune"
             app:layout_constraintTop_toTopOf="@id/iv_image_champion"
             tools:text="88 / 88 / 88" />
 
@@ -123,6 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:text="@{item.stats.general.contributionForKillRate}"
             android:textColor="@color/gunmetal"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@id/tv_kda"
@@ -131,6 +153,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_item"
+            bindItemList="@{item.itemImgList}"
+            bindMainViewModel="@{vm}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -140,6 +164,17 @@
             app:layout_constraintTop_toBottomOf="@id/iv_image_champion"
             tools:itemCount="6"
             tools:listitem="@layout/item_item" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            bindImage="@{item.accessoriesImg}"
+            bindPlaceHolder="@{@drawable/ic_default_photo}"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/rv_item"
+            app:layout_constraintStart_toEndOf="@id/rv_item"
+            app:layout_constraintTop_toTopOf="@id/rv_item"
+            app:shapeAppearanceOverlay="@style/CircleImageView" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_game_type"
@@ -158,9 +193,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
+            android:text="@{item.ago}"
             android:textColor="@color/cool_grey"
             android:textSize="12dp"
-            android:text="@{item.ago}"
             app:layout_constraintEnd_toEndOf="@id/tv_game_type"
             app:layout_constraintTop_toBottomOf="@id/tv_game_type"
             tools:text="10분전" />

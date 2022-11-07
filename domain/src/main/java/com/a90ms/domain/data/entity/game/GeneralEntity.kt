@@ -1,21 +1,23 @@
 package com.a90ms.domain.data.entity.game
 
 import com.a90ms.domain.data.dto.game.GeneralDto
+import com.a90ms.domain.data.dto.game.OpScoreBadgeType
 
 data class GeneralEntity(
-    val kills: Int,
-    val deaths: Int,
-    val assists: Int,
+    val kill: Int,
+    val death: Int,
+    val assist: Int,
     val opScoreBadge: String,
     val largestMultiKillString: String,
     val contributionForKillRate: String
 ) {
     fun toDto() = GeneralDto(
-        kills = kills,
-        deaths = deaths,
-        assists = assists,
-        opScoreBadge = opScoreBadge,
+        kill = kill,
+        death = death,
+        assist = assist,
+        opScoreBadge = OpScoreBadgeType.creator(opScoreBadge),
         largestMultiKillString = largestMultiKillString,
-        contributionForKillRate = contributionForKillRate
+        contributionForKillRate = "킬관여 $contributionForKillRate",
+        kdsToString = "$kill / $death / $assist"
     )
 }

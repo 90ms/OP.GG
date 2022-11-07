@@ -40,6 +40,10 @@ data class GameEntity(
         peak = peak,
         isWin = isWin,
         champions = champions?.mapNotNull { it?.toDto() } ?: emptyList(),
-        ago = timeToAgo(createDate + (gameLength * 1000))
+        ago = timeToAgo(createDate + (gameLength * 1000)),
+        itemImgList = itemAddDummy(),
+        accessoriesImg = items.last().imageUrl
     )
+
+    private fun itemAddDummy() = items.dropLast(1).map { it.imageUrl }
 }

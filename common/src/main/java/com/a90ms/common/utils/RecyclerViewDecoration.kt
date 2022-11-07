@@ -3,11 +3,10 @@ package com.a90ms.common.utils
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-
 import androidx.recyclerview.widget.RecyclerView
 import com.a90ms.common.ext.px
 
-open class RecyclerViewDividerDecoration : RecyclerView.ItemDecoration() {
+open class RecyclerViewDecoration : RecyclerView.ItemDecoration() {
 
     private val paint = Paint().apply {
         color = Color.parseColor("#ebeef1")
