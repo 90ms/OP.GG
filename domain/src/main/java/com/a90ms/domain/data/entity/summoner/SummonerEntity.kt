@@ -15,7 +15,7 @@ data class SummonerEntity(
 ) {
     fun toDto() = SummonerDto(
         name = name,
-        level = level,
+        level = level.toString(),
         profileImageUrl = profileImageUrl,
         profileBorderImageUrl = profileBorderImageUrl,
         url = url,

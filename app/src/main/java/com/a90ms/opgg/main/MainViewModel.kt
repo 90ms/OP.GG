@@ -1,9 +1,12 @@
 package com.a90ms.opgg.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.a90ms.domain.base.onError
 import com.a90ms.domain.base.onException
 import com.a90ms.domain.base.onSuccess
+import com.a90ms.domain.data.dto.summoner.SummonerDto
 import com.a90ms.domain.usecase.GetGamesUseCase
 import com.a90ms.domain.usecase.GetSummonerUseCase
 import com.a90ms.opgg.base.BaseViewModel
@@ -18,6 +21,9 @@ class MainViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase
 ) : BaseViewModel() {
 
+    private val _summonerInfo = MutableLiveData<SummonerDto>()
+    val summonerInfo: LiveData<SummonerDto> get() = _summonerInfo
+
     fun fetchData() {
         fetchSummoner()
         fetchGames()
@@ -26,7 +32,7 @@ class MainViewModel @Inject constructor(
     private fun fetchSummoner() {
         viewModelScope.launch {
             getSummonerUseCase().onSuccess {
-                Timber.d("fetchSummoner onSuccess $it")
+                _summonerInfo.value = it
             }.onError { code, message ->
                 Timber.e("fetchSummoner onError $code / $message")
             }.onException {
@@ -39,7 +45,6 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             val time = System.currentTimeMillis().toString()
             getGamesUseCase(time).onSuccess {
-                Timber.d("fetchGames onSuccess $it")
             }.onError { code, message ->
                 Timber.e("fetchGames onError $code / $message")
             }.onException {

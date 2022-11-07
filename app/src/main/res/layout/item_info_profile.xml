@@ -14,12 +14,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_profile_image"
+            bindImage="@{vm.summonerInfo.profileImageUrl}"
+            bindPlaceHolder="@{@drawable/ic_default_photo}"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            tools:src="@tools:sample/avatars" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="프로필 및 갱신 버튼 레이아웃" />
+            android:background="@drawable/sr_black_12"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="3dp"
+            android:text="@{vm.summonerInfo.level}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
+            app:layout_constraintEnd_toEndOf="@id/iv_profile_image"
+            app:layout_constraintStart_toStartOf="@id/iv_profile_image"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile_image"
+            tools:text="247" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:text="@{vm.summonerInfo.name}"
+            android:textColor="@color/dark_grey"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/iv_profile_image"
+            app:layout_constraintTop_toTopOf="@id/iv_profile_image"
+            tools:text="Genetory" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            bindSingleClick="@{()->vm.fetchData()}"
+            android:layout_width="89dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/sr_softblue_20"
+            android:gravity="center"
+            android:text="@string/text_refresh"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

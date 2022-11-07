@@ -2,7 +2,7 @@ package com.a90ms.domain.data.dto.summoner
 
 data class SummonerDto(
     val name: String,
-    val level: Int,
+    val level: String,
     val profileImageUrl: String,
     val profileBorderImageUrl: String,
     val url: String,
