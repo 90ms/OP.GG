@@ -1,6 +1,7 @@
 package com.a90ms.data.repository
 
 import com.a90ms.data.api.ApiService
+import com.a90ms.domain.data.entity.game.GameEntity
 import com.a90ms.domain.repository.ApiRepository
 
 class ApiRepositoryImpl(
@@ -9,7 +10,6 @@ class ApiRepositoryImpl(
     override suspend fun getSummonerInfo() =
         apiService.getSummonerInfo().summoner.toDto()
 
-    override suspend fun getGameInfoList(createDate: String) {
-        apiService.getGamesInfo(createDate)
-    }
+    override suspend fun getGameInfoList(createDate: String) =
+        apiService.getGamesInfo(createDate).run { games.map(GameEntity::toDto) }
 }

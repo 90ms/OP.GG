@@ -1,10 +1,12 @@
 package com.a90ms.domain.data.entity.game
 
+import com.a90ms.domain.data.dto.game.GameDto
+
 data class GameEntity(
     val mmr: Long,
     val champion: ChampionEntity,
-    val spells: List<ImageUrlEntity?>?,
-    val items: List<ImageUrlEntity?>?,
+    val spells: List<ImageUrlEntity>,
+    val items: List<ImageUrlEntity>,
     val needRenew: Boolean,
     val gameId: String,
     val createDate: String,
@@ -17,4 +19,23 @@ data class GameEntity(
     val peak: List<String>,
     val isWin: Boolean,
     val champions: List<ChampionsEntity?>?
-)
+) {
+    fun toDto() = GameDto(
+        mmr = mmr,
+        champion = champion.toDto(),
+        spells = spells.map(ImageUrlEntity::toDto),
+        items = items.map(ImageUrlEntity::toDto),
+        needRenew = needRenew,
+        gameId = gameId,
+        createDate = createDate,
+        gameLength = gameLength,
+        gameType = gameType,
+        summonerId = summonerId,
+        summonerName = summonerName,
+        tierRankShort = tierRankShort,
+        stats = stats.toDto(),
+        peak = peak,
+        isWin = isWin,
+        champions = champions?.mapNotNull { it?.toDto() } ?: emptyList()
+    )
+}
