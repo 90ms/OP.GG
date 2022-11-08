@@ -1,9 +1,9 @@
 package com.a90ms.domain.data.dto.game
 
 data class PositionDto(
-    val games: Int,
-    val wins: Int,
-    val losses: Int,
+    val games: Float,
+    val wins: Float,
+    val losses: Float,
     val position: String,
     val positionName: String,
     val positionType: PositionType,

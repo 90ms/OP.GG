@@ -12,8 +12,8 @@ data class ChampionsEntity(
     val kills: Int,
     val deaths: Int,
     val assists: Int,
-    val wins: Int,
-    val losses: Int
+    val wins: Float,
+    val losses: Float
 ) {
     fun toDto() = ChampionsDto(
         id = id,
@@ -31,5 +31,5 @@ data class ChampionsEntity(
     )
 
     private fun winPerRate() =
-        ((wins.toDouble() / (wins.toDouble() + losses.toDouble())) * 100).roundToInt()
+        ((wins / (wins + losses)) * 100).roundToInt()
 }

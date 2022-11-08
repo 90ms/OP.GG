@@ -5,8 +5,8 @@ import kotlin.math.roundToInt
 
 data class LeagueEntity(
     val hasResults: Boolean,
-    val wins: Int,
-    val losses: Int,
+    val wins: Float,
+    val losses: Float,
     val tierRank: TierRankEntity
 ) {
     fun toDto() = LeagueDto(
@@ -17,6 +17,5 @@ data class LeagueEntity(
         winningRate = "$wins 승 $losses 패 ${winRate()}"
     )
 
-    private fun winRate() =
-        "(${((wins.toDouble() / (wins.toDouble() + losses.toDouble())) * 100).roundToInt()}%)"
+    private fun winRate() = "(${((wins / (wins + losses)) * 100).roundToInt()}%)"
 }

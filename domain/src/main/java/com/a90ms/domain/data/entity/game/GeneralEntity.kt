@@ -4,9 +4,9 @@ import com.a90ms.domain.data.dto.game.GeneralDto
 import com.a90ms.domain.data.dto.game.OpScoreBadgeType
 
 data class GeneralEntity(
-    val kill: Int,
-    val death: Int,
-    val assist: Int,
+    val kill: Float,
+    val death: Float,
+    val assist: Float,
     val opScoreBadge: String,
     val largestMultiKillString: String,
     val contributionForKillRate: String

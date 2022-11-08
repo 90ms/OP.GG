@@ -1,9 +1,9 @@
 package com.a90ms.domain.data.dto.game
 
 data class GeneralDto(
-    val kill: Int,
-    val death: Int,
-    val assist: Int,
+    val kill: Float,
+    val death: Float,
+    val assist: Float,
     val opScoreBadge: OpScoreBadgeType,
     val largestMultiKillString: String,
     val contributionForKillRate: String,

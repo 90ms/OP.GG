@@ -5,9 +5,9 @@ import com.a90ms.domain.data.dto.game.PositionType
 import kotlin.math.roundToInt
 
 data class PositionEntity(
-    val games: Int,
-    val wins: Int,
-    val losses: Int,
+    val games: Float,
+    val wins: Float,
+    val losses: Float,
     val position: String,
     val positionName: String
 ) {
@@ -18,6 +18,6 @@ data class PositionEntity(
         position = position,
         positionName = positionName,
         positionType = PositionType.creator(positionName),
-        rate = "${((games.toDouble() / 20.0) * 100).roundToInt()}%"
+        rate = "${((games / 20.0) * 100).roundToInt()}%"
     )
 }

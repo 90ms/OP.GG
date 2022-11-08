@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.a90ms.common.ERROR_MESSAGE
 import com.a90ms.domain.base.onError
 import com.a90ms.domain.base.onException
 import com.a90ms.domain.base.onSuccess
@@ -20,7 +21,6 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -35,9 +35,9 @@ class MainViewModel @Inject constructor(
     val state: LiveData<MainState> get() = _state
 
     fun fetchData() {
+        isFirst.value = true
         fetchSummoner()
         fetchGames()
-        isFirst.value = true
     }
 
     private fun fetchSummoner() {
@@ -45,16 +45,16 @@ class MainViewModel @Inject constructor(
             getSummonerUseCase().onSuccess {
                 _summonerInfo.value = it
             }.onError { code, message ->
-                Timber.e("fetchSummoner onError $code / $message")
+                _state.value = MainState.OnError(message)
             }.onException {
-                Timber.e("fetchSummoner onException ${it.message}")
+                _state.value = MainState.OnError(it.message ?: ERROR_MESSAGE)
             }
         }
     }
 
     private fun fetchGames() {
         viewModelScope.launch {
-            getGamesUseCase().onSuccess {
+            getGamesUseCase().onSuccess { it ->
                 it.map {
                     it.map {
                         if (isFirst.value == true) updateRecentData(it.second)
@@ -64,9 +64,9 @@ class MainViewModel @Inject constructor(
                     _state.value = MainState.OnUpdateList(it)
                 }
             }.onError { code, message ->
-                Timber.e("fetchGames onError $code / $message")
+                _state.value = MainState.OnError(message)
             }.onException {
-                Timber.e("fetchGames onException ${it.message}")
+                _state.value = MainState.OnError(it.message ?: ERROR_MESSAGE)
             }
         }
     }
@@ -89,23 +89,23 @@ class MainViewModel @Inject constructor(
     val position: LiveData<PositionDto> get() = _position
 
     private fun updateRecentData(dto: GameResponseDto) {
-        val win = dto.games.count { it.isWin }
-        val loss = dto.games.count { !it.isWin }
+        val winCount = dto.games.count { it.isWin }
+        val lossCount = dto.games.count { !it.isWin }
 
-        _winLossLabel.value = "${win}승 ${loss}패"
+        _winLossLabel.value = "${winCount}승 ${lossCount}패"
 
-        val kill = dto.games.map { it.stats.general.kill }.average()
-        val death = dto.games.map { it.stats.general.death }.average()
-        val assist = dto.games.map { it.stats.general.assist }.average()
+        val killAverage = dto.games.map { it.stats.general.kill }.average()
+        val deathAverage = dto.games.map { it.stats.general.death }.average()
+        val assistAverage = dto.games.map { it.stats.general.assist }.average()
 
-        _kda.value = "$kill / $assist / $death"
+        _kda.value = "$killAverage / $assistAverage / $deathAverage"
 
         _mostList.value = dto.champions.sortedByDescending { it.winPerRate }
 
-        val average = (kill + assist) / death
-        val percent = (((kill + assist) / death - 1) * 100).roundToInt()
+        val average = (killAverage + assistAverage) / deathAverage
+        val winRate = (winCount.toDouble() / (winCount.toDouble() + lossCount.toDouble())) * 100
 
-        _kdaAverage.value = "${String.format("%.2f", average)}:1 ($percent%)"
+        _kdaAverage.value = "${String.format("%.2f", average)}:1 (${winRate.roundToInt()}%)"
 
         _position.value = dto.positions.sortedByDescending { it.games }[0]
 

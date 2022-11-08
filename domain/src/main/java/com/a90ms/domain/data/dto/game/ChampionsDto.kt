@@ -9,8 +9,8 @@ data class ChampionsDto(
     val kills: Int,
     val deaths: Int,
     val assists: Int,
-    val wins: Int,
-    val losses: Int,
+    val wins: Float,
+    val losses: Float,
     val winPerRate: Int,
     val winPerRateToString: String
 )

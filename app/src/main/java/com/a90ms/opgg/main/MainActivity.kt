@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.a90ms.common.ext.toast
 import com.a90ms.common.utils.RecyclerViewDecoration
 import com.a90ms.domain.data.dto.game.GameDto
 import com.a90ms.domain.data.dto.summoner.LeagueDto
@@ -45,6 +46,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     lifecycleScope.launch {
                         adapter.submitData(it.pagingData)
                     }
+                }
+                is MainState.OnError -> {
+                    toast(it.msg)
                 }
             }
         }
@@ -100,9 +104,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     scrollTop = { scrollToPosition(0) },
                     isLoading = {
                         loadingState(it)
+                        if (!it) {
+                            this@MainActivity.adapter.snapshot()
+                        }
                     },
                     isError = {
-                        // TODO 에러
+                        toast(it)
                     }
                 )
             }

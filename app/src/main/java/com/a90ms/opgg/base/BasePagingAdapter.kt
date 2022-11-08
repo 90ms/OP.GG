@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.a90ms.common.ERROR_MESSAGE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -60,15 +61,12 @@ class BasePagingAdapter<ITEM : Any>(
                     val errorState = it.append as? LoadState.Error
                         ?: it.prepend as? LoadState.Error
                         ?: it.refresh as? LoadState.Error
-                    errorState?.let { isError?.invoke(it.error.message ?: "error") }
+                    errorState?.let { isError?.invoke(it.error.message ?: ERROR_MESSAGE) }
                 }
         }
     }
 
-    private fun setupScrollTop(
-        scope: CoroutineScope,
-        scrollTop: () -> Unit
-    ) {
+    private fun setupScrollTop(scope: CoroutineScope, scrollTop: () -> Unit) {
         scope.launch {
             loadStateFlow
                 .dropWhile {
