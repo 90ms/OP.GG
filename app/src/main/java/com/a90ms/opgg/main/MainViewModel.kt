@@ -10,6 +10,7 @@ import com.a90ms.domain.base.onException
 import com.a90ms.domain.base.onSuccess
 import com.a90ms.domain.data.dto.game.ChampionsDto
 import com.a90ms.domain.data.dto.game.GameResponseDto
+import com.a90ms.domain.data.dto.game.PositionDto
 import com.a90ms.domain.data.dto.summoner.SummonerDto
 import com.a90ms.domain.usecase.GetGamesUseCase
 import com.a90ms.domain.usecase.GetSummonerUseCase
@@ -84,6 +85,9 @@ class MainViewModel @Inject constructor(
     private val _kdaAverage = MutableLiveData("")
     val kdaAverage: LiveData<String> get() = _kdaAverage
 
+    private val _position = MutableLiveData<PositionDto>()
+    val position: LiveData<PositionDto> get() = _position
+
     private fun updateRecentData(dto: GameResponseDto) {
         val win = dto.games.count { it.isWin }
         val loss = dto.games.count { !it.isWin }
@@ -102,6 +106,8 @@ class MainViewModel @Inject constructor(
         val percent = (((kill + assist) / death - 1) * 100).roundToInt()
 
         _kdaAverage.value = "${String.format("%.2f", average)}:1 ($percent%)"
+
+        _position.value = dto.positions.sortedByDescending { it.games }[0]
 
         isFirst.value = false
     }

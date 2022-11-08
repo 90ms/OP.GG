@@ -20,6 +20,8 @@ import com.a90ms.common.ext.isValidContext
 import com.a90ms.common.ext.px
 import com.a90ms.common.utils.OnSingleClickListener
 import com.a90ms.domain.data.dto.game.ImageUrlDto
+import com.a90ms.domain.data.dto.game.PositionDto
+import com.a90ms.domain.data.dto.game.PositionType
 import com.a90ms.opgg.BR
 import com.a90ms.opgg.R
 import com.a90ms.opgg.main.MainViewModel
@@ -165,5 +167,23 @@ fun LinearLayout.addDynamicItemView(value: String, placeHolder: Drawable) {
         bindImage(value, placeHolder)
     }.run {
         addView(this)
+    }
+}
+
+@BindingAdapter("bindRecentPosition")
+fun ImageView.bindRecentPosition(positionDto: PositionDto?) {
+    positionDto?.let {
+        val drawable = when (positionDto.positionType) {
+            PositionType.TOP -> R.drawable.icon_lol_top
+            PositionType.JUNGLE -> R.drawable.icon_lol_jng
+            PositionType.MIDDLE -> R.drawable.icon_lol_mid
+            PositionType.BOTTOM -> R.drawable.icon_lol_bot
+            PositionType.SUPPORT -> R.drawable.icon_lol_sup
+            else -> null
+        }
+
+        if (context.isValidContext()) {
+            Glide.with(context).load(drawable).into(this)
+        }
     }
 }
