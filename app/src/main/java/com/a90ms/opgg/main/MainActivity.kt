@@ -2,9 +2,11 @@ package com.a90ms.opgg.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.a90ms.common.ext.toast
 import com.a90ms.common.utils.RecyclerViewDecoration
 import com.a90ms.domain.data.dto.game.GameDto
@@ -36,6 +38,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun setupBinding() {
         with(binding) {
             vm = viewModel
+
+            fbTop.setOnClickListener {
+                binding.rvGame.scrollToPosition(0)
+            }
         }
     }
 
@@ -92,6 +98,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             addItemDecoration(RecyclerViewDecoration())
+
+            addOnScrollListener(
+                object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        binding.fbTop.isVisible = recyclerView.canScrollVertically(-1)
+                    }
+                }
+            )
 
             this@MainActivity.adapter = BasePagingAdapter(
                 layoutResourceId = R.layout.item_game,

@@ -41,5 +41,21 @@
             tools:itemCount="10"
             tools:listitem="@layout/item_game" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fb_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/sr_floating_button"
+            android:backgroundTint="@color/white"
+            android:elevation="5dp"
+            android:src="@drawable/arrow_up"
+            android:visibility="invisible"
+            app:borderWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"
+            android:contentDescription="@string/description_scroll_top" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
