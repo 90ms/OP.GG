@@ -99,6 +99,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     scope = lifecycleScope,
                     scrollTop = { scrollToPosition(0) },
                     isLoading = {
+                        loadingState(it)
                     },
                     isError = {
                         // TODO 에러
