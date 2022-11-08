@@ -14,7 +14,7 @@ data class LeagueEntity(
         wins = wins,
         losses = losses,
         tierRank = tierRank.toDto(),
-        winningRate = "$wins 승 $losses 패 ${winRate()}"
+        winningRate = "${wins.toInt()} 승 ${losses.toInt()} 패 ${winRate()}"
     )
 
     private fun winRate() = "(${((wins / (wins + losses)) * 100).roundToInt()}%)"
