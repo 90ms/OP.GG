@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.a90ms.common.ext.px
 import com.a90ms.opgg.R
 import com.a90ms.opgg.databinding.DialogLoadingBinding
+import com.google.android.material.appbar.AppBarLayout
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 abstract class BaseActivity<VDB : ViewDataBinding>(
     @LayoutRes private val layoutResId: Int
@@ -51,5 +54,27 @@ abstract class BaseActivity<VDB : ViewDataBinding>(
 
     override fun loadingState(show: Boolean) {
         if (show) showLoading() else hideLoading()
+    }
+
+    protected fun setupAppBarListener(
+        appBarLayout: AppBarLayout,
+        scrollPx: Int = 30.px,
+        isCollapsed: (Boolean) -> Unit = { _ -> }
+    ) {
+        appBarLayout.addOnOffsetChangedListener(
+            object : AppBarLayout.OnOffsetChangedListener {
+                var collapsed by Delegates.observable(
+                    false
+                ) { _, oldValue, newValue ->
+                    if (oldValue == newValue) return@observable
+                    isCollapsed(newValue)
+                }
+
+                override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+                    collapsed = if (appBarLayout.totalScrollRange <= -verticalOffset) true
+                    else verticalOffset < -scrollPx
+                }
+            }
+        )
     }
 }

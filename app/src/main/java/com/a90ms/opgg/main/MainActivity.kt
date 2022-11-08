@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.a90ms.common.ext.px
 import com.a90ms.common.ext.toast
 import com.a90ms.common.utils.RecyclerViewDecoration
 import com.a90ms.domain.data.dto.game.GameDto
@@ -16,6 +17,7 @@ import com.a90ms.opgg.R
 import com.a90ms.opgg.base.BaseActivity
 import com.a90ms.opgg.base.BaseListAdapter
 import com.a90ms.opgg.base.BasePagingAdapter
+import com.a90ms.opgg.base.bindSingleClick
 import com.a90ms.opgg.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -40,7 +42,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             vm = viewModel
 
             fbTop.setOnClickListener {
+                abl.setExpanded(true)
                 binding.rvGame.scrollToPosition(0)
+            }
+
+            setupAppBarListener(abl, 170.px) {
+                clTitle.isVisible = it
+            }
+            tvRefresh.bindSingleClick {
+                abl.setExpanded(true)
+                viewModel.fetchData()
             }
         }
     }
